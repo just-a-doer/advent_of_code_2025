@@ -12,22 +12,23 @@ with open("input.txt", "r") as f:
     for line in f:
         dist_str = line[1:]
         dist = int(dist_str)
+        num_revs = int(dist / 100)
+        true_dist = dist - num_revs*100
         if line[0] == "L":
-            dial_loc = orig_dial_loc - dist
+            dial_loc = orig_dial_loc - true_dist
+            if dial_loc < 0 and orig_dial_loc != 0:
+                num_zeros += 1
+            num_zeros += num_revs
         elif line[0] == "R":
-            dial_loc = orig_dial_loc + dist
+            dial_loc = orig_dial_loc + true_dist
+            if dial_loc > 100:
+                num_zeros += 1
+            num_zeros += num_revs
 
-        num_revolutions = abs(int(dist/100))
-        if (dial_loc < 0 and orig_dial_loc != 0) or dial_loc > 100:
-            num_zeros += 1
-        elif dial_loc == 0:
-            num_zeros += 1
-        elif dial_loc == 100:
-            num_zeros += 1
-        if num_revolutions > 1:
-            num_zeros += num_revolutions
         orig_dial_loc = dial_loc % 100
-
+        if orig_dial_loc == 0:
+            num_zeros += 1
+        print(orig_dial_loc)
 
     print(num_zeros)
 
