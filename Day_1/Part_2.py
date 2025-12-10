@@ -1,10 +1,4 @@
 
-def check_sign(number):
-    if number >= 0:
-        return True
-    elif number < 0:
-        return False
-
 num_zeros = 0
 
 orig_dial_loc = 50
