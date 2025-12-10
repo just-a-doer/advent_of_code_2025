@@ -28,7 +28,6 @@ with open("input.txt", "r") as f:
         orig_dial_loc = dial_loc % 100
         if orig_dial_loc == 0:
             num_zeros += 1
-        print(orig_dial_loc)
 
     print(num_zeros)
 
