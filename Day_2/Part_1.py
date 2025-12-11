@@ -25,6 +25,6 @@ with open("input.txt", "r") as f:
                 invalid_id = str(int_prefix) + str(int_prefix)
                 current_id = int(invalid_id)
             else:
-                current_id_str = str(1) + num_digits * str(0)
+                current_id_str = "1" + num_digits * "0"
                 current_id = int(current_id_str)
     print(sum_ids)
