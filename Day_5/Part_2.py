@@ -1,4 +1,3 @@
-num_good = 0
 with open("input.txt", "r") as f:
     lines = f.readlines()
     sorted_range_array = []
