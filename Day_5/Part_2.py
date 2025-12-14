@@ -30,7 +30,6 @@ with open("input.txt", "r") as f:
             current_range = range_set
     final_range_array.append(current_range)
 
-    print(final_range_array)
 
     num_good = 0
     for j in range(0,len(final_range_array)):
