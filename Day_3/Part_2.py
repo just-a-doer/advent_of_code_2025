@@ -1,23 +1,29 @@
-
-battery_val = 0
-total_power = 0
+power = ""
+final_power = 0
 with open("input.txt", "r") as f:
     for line in f:
-        battery_power_str_list = []
-        for battery in line:
-            if len(battery_power_str_list) < 12:
-                battery_power_str_list.append(battery)
-            else:
-                battery_power = int(battery_power_str_list[0]+battery_power_str_list[1])
-                new_battery_power1 = int(battery_power_str_list[0]+battery)
-                new_battery_power2 = int(battery_power_str_list[1]+battery)
-                max_new_power = max(new_battery_power1,new_battery_power2)
-                if max_new_power >= battery_power:
-                    final_power = max_new_power
-                    battery_power_str_list[0] = str(final_power)[0]
-                    battery_power_str_list[1] = str(final_power)[1]
-                else:
-                    final_power = battery_power
-        total_power += final_power
-    print(total_power)
+        line = line.rstrip()
+        steps = len(line)-12
+        num_removed = 0
+        power = line[:12]
+        for j in range(0,steps):
+            not_found = True
+            i = 0
+            while i < 11 and not_found:
+                if power[i] < power[i+1]:
+                    power = power[0:i] + power[i+1:] + line[12+j]
+                    num_removed += 1
+                    not_found = False
+                i+=1
+        for k in range(num_removed,steps):
+            loc = len(line) - num_removed-1
+            if line[loc-k] > power[11]:
+                power = power[:-1]
+                power += line[loc]
+
+        final_power += int(power)
+    print(final_power)
+
+
+
 
