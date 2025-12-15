@@ -38,56 +38,33 @@ with open("input.txt", "r") as f:
 
     val_str = ""
     val_str_array = []
-    start_index = 0
     for row in lines:
+        start_index = 0
+        val_str_list = []
         for width in col_width_array:
             val_str = row[start_index:start_index + width]
-            val_str_array.append(val_str)
+            val_str_list.append(val_str.rstrip('\n'))
             start_index += width+1
+        val_str_array.append(val_str_list)
 
 
-#     row_index = 0
-#     for row in line_array:
-#         found_index = 0
-#         for k in range(0, len(row)):
-#             if row[k] != "":
-#                 if len(row[k]) < col_width_array[found_index]:
-#                     if k == 0:
-#                         clean_array[row_index][found_index] = pad_right(
-#                             col_width_array[found_index] - len(row[k]), row[k])
-#                     elif k == len(row) - 1:
-#                         if row[k - 1] == "":
-#                             clean_array[row_index][found_index] = pad_left(
-#                                 col_width_array[found_index] - len(row[k]), row[k])
-#                         else:
-#                             clean_array[row_index][found_index] = pad_right(
-#                                 col_width_array[found_index] - len(row[k]), row[k].rstrip())
-#                     elif row[k - 1] == "":
-#                         clean_array[row_index][found_index] = pad_left(col_width_array[found_index] - len(row[k]),
-#                                                                        row[k])
-#                     elif row[k + 1] == "" or row[k + 1] == '\n':
-#                         clean_array[row_index][found_index] = pad_right(
-#                             col_width_array[found_index] - len(row[k]), row[k])
-#                 found_index += 1
-#         row_index += 1
 #
+num_cols = len(val_str_array[0])
+num_rows = len(val_str_array)-1
 #
-# num_cols = len(clean_array[0])
-# num_rows = len(clean_array)
+for col in range(0,num_cols):
+    operator = operator_list[col]
+    value_list = []
+    for idx in range(0,len(val_str_array[0][col])):
+        value_str = ""
+        for row in range(0,num_rows):
+            if val_str_array[row][col][idx] != "" and val_str_array[row][col][idx] != '\n':
+                value_str += val_str_array[row][col][idx]
+        if value_str != "":
+            value_list.append(int(value_str))
+    if operator == "*":
+        total += math.prod(value_list)
+    elif operator == "+":
+        total += sum(value_list)
 #
-# for col in range(0,num_cols):
-#     operator = operator_list[col]
-#     value_list = []
-#     for idx in range(0,len(clean_array[0][col])):
-#         value_str = ""
-#         for row in range(0,num_rows):
-#             if clean_array[row][col][idx] != "." and clean_array[row][col][idx] != '\n':
-#                 value_str += clean_array[row][col][idx]
-#         if value_str != "":
-#             value_list.append(int(value_str))
-#     if operator == "*":
-#         total += math.prod(value_list)
-#     elif operator == "+":
-#         total += sum(value_list)
-#
-# print(total)
+print(total)
